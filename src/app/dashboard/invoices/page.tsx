@@ -1,12 +1,9 @@
-// import Pagination from '@/app/ui/invoices/pagination';
+import { Suspense } from 'react';
 import Search from "@/app/ui/search";
-// import Table from '@/app/ui/invoices/table';
 import { CreateInvoice } from "@/app/ui/invoices/buttons";
 import { lusitana } from "@/app/ui/fonts";
-import { Suspense } from "react";
-// import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
-// import { Suspense } from 'react';
 
+// Certifique-se de envolver a parte que usa useSearchParams com Suspense
 export default async function Page() {
   return (
     <div className="w-full">
@@ -15,15 +12,15 @@ export default async function Page() {
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
         <Search placeholder="Search invoices..." />
-        <Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
           <CreateInvoice />
         </Suspense>
       </div>
-      {/*  <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
-      </Suspense> */}
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        {/* Aqui você pode envolver a Pagination ou Table se necessário */}
+        {/* <Suspense fallback={<div>Loading...</div>}>
+          <Pagination totalPages={totalPages} />
+        </Suspense> */}
       </div>
     </div>
   );
