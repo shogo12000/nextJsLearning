@@ -1,6 +1,6 @@
-import { Card } from "../ui/dashboard/cards";
+// import { Card } from "../ui/dashboard/cards";
 import { fetchRevenue } from "../lib/data";
-import { lusitana } from "@/app/ui/fonts";
+// import { lusitana } from "@/app/ui/fonts";
 import RevenueChart from "../ui/dashboard/revenue-chart";
 
 export default async function Page() {
