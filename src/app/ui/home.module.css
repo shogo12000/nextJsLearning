@@ -1,0 +1,18 @@
+
+.shape {
+    height: 0;
+    width: 0;
+    border-bottom: 30px solid black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
+
+ 
+.btn { 
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  background-color: #3b82f6; /* bg-blue-500 */
+  border-radius: 1rem; /* rounded-2xl */
+  color: white; /* text-white */
+  width: auto; /* w-auto */
+  
+}
