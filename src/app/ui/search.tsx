@@ -5,9 +5,14 @@ import { useSearchParams } from 'next/navigation';
  
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
-  
+
   function handleSearch(term: string) {
-    console.log(term);
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set('query', term);
+    } else {
+      params.delete('query');
+    }
   }
  
   return (
