@@ -1,4 +1,6 @@
 'use server';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import postgres from 'postgres';
 import { redirect } from 'next/navigation';
@@ -8,7 +10,7 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 
 const FormSchema = z.object({
-  id: z.string(),
+  // id: z.string(),
   customerId: z.string({
     invalid_type_error: 'Please select a customer.',
   }),
@@ -18,19 +20,19 @@ const FormSchema = z.object({
   status: z.enum(['pending', 'paid'], {
     invalid_type_error: 'Please select an invoice status.',
   }),
-  date: z.string(),
+  // date: z.string(),
 });
 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
+//const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
-const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+//const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function updateInvoice(
   id: string,
   prevState: State,
   formData: FormData,
 ) {
-  const validatedFields = UpdateInvoice.safeParse({
+  const validatedFields = FormSchema.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
@@ -72,7 +74,7 @@ export type State = {
 
 export async function createInvoice(prevState: State, formData: FormData) {
   // Validate form fields using Zod
-  const validatedFields = CreateInvoice.safeParse({
+  const validatedFields = FormSchema.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
@@ -148,3 +150,22 @@ export async function deleteInvoice(id: string) {
 }
 
 
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  console.log("Teste")
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}
