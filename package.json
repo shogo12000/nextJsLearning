@@ -13,8 +13,8 @@
     "@neondatabase/serverless": "^1.0.0",
     "bcrypt": "^5.1.1",
     "clsx": "^2.1.1",
-    "next": "^15.2.4",
-    "next-auth": "^4.24.11",
+    "next": "^15.3.0-canary.39",
+    "next-auth": "^5.0.0-beta.25",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -32,5 +32,10 @@
     "eslint-config-next": "15.2.4",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "next-auth": {
+      "next": "^15.2.4"
+    }
   }
 }
